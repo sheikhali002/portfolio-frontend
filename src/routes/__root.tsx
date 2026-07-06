@@ -77,14 +77,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Alex Morgan — Software Project Manager" },
+      { name: "description", content: "Portfolio of Alex Morgan — a Software Project Manager delivering web, mobile, SaaS, enterprise, and AI products across industries." },
+      { name: "author", content: "Alex Morgan" },
+      { property: "og:title", content: "Alex Morgan — Software Project Manager" },
+      { property: "og:description", content: "Delivering web, mobile, SaaS, enterprise, and AI products across industries." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
