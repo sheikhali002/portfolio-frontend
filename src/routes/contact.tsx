@@ -79,7 +79,7 @@ function Contact() {
           onSubmit={handleSubmit(onSubmit)}
           className="rounded-2xl border border-border bg-card p-8 shadow-elegant"
         >
-          <div className="grid gap-5 md:grid-cols-2">
+          {/* <div className="grid gap-5 md:grid-cols-2">
             <Field label="Name" error={errors.name?.message}>
               <input {...register("name", { required: "Name is required" })} className="input" placeholder="Jane Doe" />
             </Field>
@@ -104,7 +104,24 @@ function Contact() {
             className="mt-6 inline-flex items-center gap-2 rounded-full bg-gradient-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow-glow transition-transform hover:-translate-y-0.5 disabled:opacity-60"
           >
             {sent ? <><CheckCircle2 className="h-4 w-4" /> Message sent</> : <><Send className="h-4 w-4" /> {isSubmitting ? "Sending…" : "Send message"}</>}
-          </button>
+          </button> */}
+           <LocalTime />
+
+          {/* Interactive map */}
+          <div className="flex-1 min-h-[400px] overflow-hidden rounded-2xl border border-border shadow-elegant">
+            <iframe
+              title="Jubail, Saudi Arabia"
+              src="https://www.openstreetmap.org/export/embed.html?bbox=49.5800%2C26.9200%2C49.7200%2C27.0200&layer=mapnik&marker=26.9667%2C49.6500"
+              width="100%"
+              height="100%"
+              style={{ border: 0, minHeight: "400px", display: "block", filter: "saturate(0.85)" }}
+              loading="lazy"
+            />
+          </div>
+
+          <p className="text-center text-xs text-muted-foreground">
+            📍 Jubail Industrial City, Eastern Province, Saudi Arabia
+          </p>
         </motion.form>
       </div>
 
@@ -132,5 +149,50 @@ function Field({ label, error, children }: { label: string; error?: string; chil
       <div className="mt-1.5">{children}</div>
       {error && <span className="mt-1 block text-xs text-destructive">{error}</span>}
     </label>
+  );
+}
+
+function LocalTime() {
+  const [time, setTime] = useState(() => new Date());
+
+  // Tick every second
+  useState(() => {
+    const id = setInterval(() => setTime(new Date()), 1000);
+    return () => clearInterval(id);
+  });
+
+  const formatted = time.toLocaleTimeString("en-US", {
+    timeZone: "Asia/Riyadh",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true,
+  });
+
+  const dateFormatted = time.toLocaleDateString("en-US", {
+    timeZone: "Asia/Riyadh",
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+  });
+
+  const hour = new Date(time.toLocaleString("en-US", { timeZone: "Asia/Riyadh" })).getHours();
+  const isWorkingHours = hour >= 9 && hour < 18;
+
+  return (
+    <div className="flex items-center justify-between rounded-2xl border border-border bg-card px-6 py-4 shadow-soft">
+      <div>
+        <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Local time in Jubail</p>
+        <p className="mt-0.5 text-2xl font-bold tracking-tight tabular-nums">{formatted}</p>
+        <p className="text-xs text-muted-foreground">{dateFormatted}</p>
+      </div>
+      <div className="flex flex-col items-end gap-1">
+        <span className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium ${isWorkingHours ? "bg-emerald-500/10 text-emerald-600" : "bg-muted text-muted-foreground"}`}>
+          <span className={`h-1.5 w-1.5 rounded-full ${isWorkingHours ? "bg-emerald-500 animate-pulse" : "bg-muted-foreground/50"}`} />
+          {isWorkingHours ? "Available now" : "Outside hours"}
+        </span>
+        <p className="text-xs text-muted-foreground">AST · UTC+3</p>
+      </div>
+    </div>
   );
 }
