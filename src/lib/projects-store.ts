@@ -1,6 +1,18 @@
-// Local storage-backed project store.
-// The API surface (list/get/create/update/remove) is intentionally async-shaped
-// so it can be swapped for a real backend without touching consumers.
+import {
+  collection,
+  doc,
+  getDocs,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  onSnapshot,
+  query,
+  orderBy,
+  serverTimestamp,
+  setDoc,
+  type Unsubscribe,
+} from "firebase/firestore";
+import { db } from "./firebase";
 
 export type ProjectCategory = "Web" | "Mobile";
 
@@ -19,11 +31,11 @@ export interface Project {
   coverImage: string;
 }
 
-const KEY = "portfolio:projects";
+const COL = "projects";
 
-const seed: Project[] = [
+// Seed data — written to Firestore once if the collection is empty.
+const seed: Omit<Project, "id">[] = [
   {
-    id: "1",
     title: "Enterprise CRM Platform",
     category: "Web",
     client: "Nordbank Group",
@@ -41,7 +53,6 @@ const seed: Project[] = [
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80",
   },
   {
-    id: "2",
     title: "HealthTrack Mobile App",
     category: "Mobile",
     client: "Vitalis Health",
@@ -59,7 +70,6 @@ const seed: Project[] = [
       "https://images.unsplash.com/photo-1512446816042-444d641267d4?w=1200&q=80",
   },
   {
-    id: "3",
     title: "Retail Analytics SaaS",
     category: "Web",
     client: "MarketPulse Inc.",
@@ -71,13 +81,11 @@ const seed: Project[] = [
     role: "Delivery Manager",
     challenges:
       "Scaling data pipelines to 200M events/day while keeping dashboard load times under 1s.",
-    outcomes:
-      "Signed 40+ enterprise clients in the first year, driving $6M ARR.",
+    outcomes: "Signed 40+ enterprise clients in the first year, driving $6M ARR.",
     coverImage:
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80",
   },
   {
-    id: "4",
     title: "FinFlow Payments App",
     category: "Mobile",
     client: "PayNorth",
@@ -95,7 +103,6 @@ const seed: Project[] = [
       "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1200&q=80",
   },
   {
-    id: "5",
     title: "LogiChain ERP",
     category: "Web",
     client: "Meridian Logistics",
@@ -107,13 +114,11 @@ const seed: Project[] = [
     role: "Program Manager",
     challenges:
       "Migrating 15 years of legacy data and rolling out to 30 warehouses without operational downtime.",
-    outcomes:
-      "Reduced operational reporting cycle from 5 days to 4 hours.",
+    outcomes: "Reduced operational reporting cycle from 5 days to 4 hours.",
     coverImage:
       "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1200&q=80",
   },
   {
-    id: "6",
     title: "AI Content Studio",
     category: "Web",
     client: "Loom Creative",
@@ -132,50 +137,71 @@ const seed: Project[] = [
   },
 ];
 
-function read(): Project[] {
-  if (typeof window === "undefined") return seed;
-  try {
-    const raw = window.localStorage.getItem(KEY);
-    if (!raw) {
-      window.localStorage.setItem(KEY, JSON.stringify(seed));
-      return seed;
-    }
-    return JSON.parse(raw) as Project[];
-  } catch {
-    return seed;
-  }
+function toProject(id: string, data: Record<string, unknown>): Project {
+  return {
+    id,
+    title: data.title as string,
+    category: data.category as ProjectCategory,
+    client: data.client as string,
+    duration: data.duration as string,
+    teamSize: data.teamSize as number,
+    description: data.description as string,
+    technologies: data.technologies as string[],
+    role: data.role as string,
+    challenges: data.challenges as string,
+    outcomes: data.outcomes as string,
+    coverImage: data.coverImage as string,
+  };
 }
 
-function write(items: Project[]) {
-  if (typeof window === "undefined") return;
-  window.localStorage.setItem(KEY, JSON.stringify(items));
-  window.dispatchEvent(new CustomEvent("projects:changed"));
+/** Write seed docs to Firestore if the collection is empty. */
+async function maybeSeед() {
+  const snap = await getDocs(collection(db, COL));
+  if (!snap.empty) return;
+  await Promise.all(
+    seed.map((p, i) =>
+      setDoc(doc(db, COL, String(i + 1)), {
+        ...p,
+        _createdAt: serverTimestamp(),
+        _order: i,
+      })
+    )
+  );
 }
+
+// Kick off seeding immediately (no-op after first run).
+maybeSeед().catch(console.error);
 
 export const projectsStore = {
   async list(): Promise<Project[]> {
-    return read();
+    const q = query(collection(db, COL), orderBy("_createdAt", "desc"));
+    const snap = await getDocs(q);
+    return snap.docs.map((d) => toProject(d.id, d.data()));
   },
+
   async create(input: Omit<Project, "id">): Promise<Project> {
-    const items = read();
-    const project = { ...input, id: crypto.randomUUID() };
-    write([project, ...items]);
-    return project;
+    const ref = await addDoc(collection(db, COL), {
+      ...input,
+      _createdAt: serverTimestamp(),
+    });
+    return { ...input, id: ref.id };
   },
+
   async update(id: string, patch: Partial<Omit<Project, "id">>): Promise<void> {
-    write(read().map((p) => (p.id === id ? { ...p, ...patch } : p)));
+    await updateDoc(doc(db, COL, id), patch as Record<string, unknown>);
   },
+
   async remove(id: string): Promise<void> {
-    write(read().filter((p) => p.id !== id));
+    await deleteDoc(doc(db, COL, id));
   },
-  subscribe(cb: () => void) {
-    if (typeof window === "undefined") return () => {};
-    const handler = () => cb();
-    window.addEventListener("projects:changed", handler);
-    window.addEventListener("storage", handler);
-    return () => {
-      window.removeEventListener("projects:changed", handler);
-      window.removeEventListener("storage", handler);
-    };
+
+  /**
+   * Real-time subscription via Firestore onSnapshot.
+   * The callback fires immediately with the current state and on every change.
+   */
+  subscribe(cb: () => void): () => void {
+    const q = query(collection(db, COL), orderBy("_createdAt", "desc"));
+    const unsub: Unsubscribe = onSnapshot(q, () => cb());
+    return unsub;
   },
 };

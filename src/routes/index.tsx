@@ -30,7 +30,7 @@ function Home() {
               Available for new engagements
             </span>
             <h1 className="mt-6 text-balance text-5xl font-bold tracking-tight md:text-7xl">
-              Alex Morgan
+              Ali Hassan
             </h1>
             <p className="mt-4 text-xl font-medium text-gradient md:text-2xl">
               Software Project Manager
@@ -60,7 +60,7 @@ function Home() {
       </section>
 
       {/* Stats */}
-      <section className="mx-auto -mt-12 max-w-6xl px-6">
+      <section className="mx-auto -mt-2 max-w-6xl px-6">
         <div className="grid grid-cols-2 gap-4 rounded-2xl border border-border bg-card p-6 shadow-elegant md:grid-cols-4 md:p-8">
           {stats.map((s, i) => (
             <motion.div

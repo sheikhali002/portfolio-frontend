@@ -41,9 +41,9 @@ export function Navbar() {
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <Link to="/" className="flex items-center gap-2 font-semibold tracking-tight">
           <span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-primary text-primary-foreground shadow-glow">
-            AM
+            AH
           </span>
-          <span className="hidden sm:inline">Alex Morgan</span>
+          <span className="hidden sm:inline">Ali Hassan</span>
         </Link>
 
         <div className="hidden items-center gap-1 md:flex">

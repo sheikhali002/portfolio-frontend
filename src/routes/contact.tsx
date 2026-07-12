@@ -7,7 +7,7 @@ import { Mail, MapPin, Linkedin, Github, Send, CheckCircle2 } from "lucide-react
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — Alex Morgan" },
+      { title: "Contact — Ali Hassan" },
       { name: "description", content: "Get in touch to discuss project management engagements, delivery consulting, or new opportunities." },
       { property: "og:title", content: "Contact — Alex Morgan" },
       { property: "og:description", content: "Let's talk about your next project." },
@@ -33,10 +33,9 @@ function Contact() {
     <div className="mx-auto max-w-6xl px-6 py-16 md:py-24">
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="max-w-2xl">
         <p className="text-sm font-medium uppercase tracking-wider text-primary">Contact</p>
-        <h1 className="mt-2 text-4xl font-bold tracking-tight md:text-5xl">Let's build something great</h1>
+        <h1 className="mt-2 text-4xl font-bold tracking-tight md:text-5xl">Let's discuss your next software project.</h1>
         <p className="mt-4 text-muted-foreground">
-          Whether you're launching an MVP or scaling an enterprise program, I'd
-          love to hear about your goals.
+          Whether you're planning an AI solution, enterprise platform, SaaS product, or digital transformation initiative, I'd be happy to discuss how I can help deliver it successfully.
         </p>
       </motion.div>
 
@@ -46,14 +45,14 @@ function Contact() {
             <span className="grid h-11 w-11 place-items-center rounded-xl bg-accent text-primary"><Mail className="h-5 w-5" /></span>
             <div>
               <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Email</p>
-              <p className="font-medium">hello@alexmorgan.dev</p>
+              <p className="font-medium">alimagu6234@gmail.com</p>
             </div>
           </a>
-          <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="flex items-center gap-4 rounded-2xl border border-border bg-card p-5 shadow-soft transition-shadow hover:shadow-elegant">
+          <a href="https://linkedin.com/in/ali-hassan-496b3a197" target="_blank" rel="noreferrer" className="flex items-center gap-4 rounded-2xl border border-border bg-card p-5 shadow-soft transition-shadow hover:shadow-elegant">
             <span className="grid h-11 w-11 place-items-center rounded-xl bg-accent text-primary"><Linkedin className="h-5 w-5" /></span>
             <div>
               <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">LinkedIn</p>
-              <p className="font-medium">linkedin.com/in/alexmorgan</p>
+              <p className="font-medium">linkedin.com/in/ali-hassan-496b3a197</p>
             </div>
           </a>
           <a href="https://github.com" target="_blank" rel="noreferrer" className="flex items-center gap-4 rounded-2xl border border-border bg-card p-5 shadow-soft transition-shadow hover:shadow-elegant">
@@ -67,7 +66,8 @@ function Contact() {
             <span className="grid h-11 w-11 place-items-center rounded-xl bg-accent text-primary"><MapPin className="h-5 w-5" /></span>
             <div>
               <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Location</p>
-              <p className="font-medium">Amsterdam, NL — Remote friendly</p>
+              <p className="font-medium">Jubail, Kingdom of Saudi Arabia
+                Remote • GCC • Worldwide</p>
             </div>
           </div>
         </div>

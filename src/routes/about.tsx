@@ -5,24 +5,38 @@ import { CheckCircle2 } from "lucide-react";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About — Alex Morgan" },
-      { name: "description", content: "Software Project Manager with 10+ years leading web, mobile, SaaS, and enterprise product delivery." },
-      { property: "og:title", content: "About — Alex Morgan" },
-      { property: "og:description", content: "10+ years leading complex software delivery across industries." },
+      { title: "About — Ali Hassan" },
+      { name: "description", content: "Senior Project Manager & Scrum Master specializing in Agile software delivery, AI-powered solutions, enterprise applications, and digital transformation." },
+      { property: "og:title", content: "About — Ali Hassan" },
+      { property: "og:description", content: "5+ years leading complex software delivery across industries." },
     ],
   }),
   component: About,
 });
 
 const industries = [
-  "Web applications", "Mobile applications", "SaaS", "Enterprise software",
-  "AI products", "E-commerce", "Blockchain", "CRM systems", "ERP systems",
+  "Enterprise Software",
+  "AI & LLM Solutions",
+  "E-commerce",
+  "Cloud Applications",
+  "ERP Systems",
+  "Travel Platforms",
+  "Real Estate",
+  "SaaS Products",
+  "Digital Transformation",
 ];
 
 const responsibilities = [
-  "Requirement gathering", "Sprint planning", "Scrum", "Agile",
-  "Client communication", "Team management", "Risk management",
-  "Product roadmaps", "QA coordination", "Delivery management",
+  "Project Planning",
+  "Stakeholder Management",
+  "Requirements Gathering",
+  "Sprint Planning",
+  "Scrum Master",
+  "Risk Management",
+  "Budget & Resource Planning",
+  "Executive Reporting",
+  "Cross-functional Team Leadership",
+  "Digital Transformation",
 ];
 
 function About() {
@@ -35,20 +49,14 @@ function About() {
       >
         <p className="text-sm font-medium uppercase tracking-wider text-primary">About</p>
         <h1 className="mt-2 text-4xl font-bold tracking-tight md:text-5xl">
-          A decade of shipping the right things, the right way.
+          Delivering software projects with clarity, agility, and measurable business impact.
         </h1>
         <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-          I'm a Software Project Manager with 10+ years leading the delivery of
-          web, mobile, SaaS, and enterprise products. I've partnered with
-          founders, product leaders, and Fortune 500 stakeholders to translate
-          ambitious ideas into pragmatic delivery plans — and then run the
-          teams that make them real.
+          I'm a Senior Project Manager and Scrum Master with 5+ years of experience delivering enterprise software, AI-powered products, e-commerce platforms, and cloud-based solutions for clients across Saudi Arabia, the UAE, and the UK.
+
         </p>
         <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-          My work spans startups shipping their first MVP through to
-          multi-year enterprise programs with distributed teams of 20+
-          engineers. I focus on clarity, momentum, and the operating rhythms
-          that keep quality and morale high.
+          My background combines technical understanding with strong project leadership, allowing me to bridge business goals and engineering execution. I specialize in Agile delivery, stakeholder management, requirements gathering, sprint planning, risk management, and leading cross-functional teams from project initiation through successful production releases.
         </p>
       </motion.div>
 
