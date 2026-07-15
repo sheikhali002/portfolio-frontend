@@ -152,6 +152,7 @@ function toProject(id: string, data: Record<string, unknown>): Project {
     challenges: data.challenges as string,
     outcomes: data.outcomes as string,
     coverImage: data.coverImage as string,
+    projectUrl: data.projectUrl as string,
   };
 }
 

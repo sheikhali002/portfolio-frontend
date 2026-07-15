@@ -8,6 +8,7 @@ interface Props {
 }
 
 export function ProjectCard({ project, index = 0 }: Props) {
+  console.log(project.projectUrl,'hi-there')
   return (
     <motion.article
       initial={{ opacity: 0, y: 24 }}
