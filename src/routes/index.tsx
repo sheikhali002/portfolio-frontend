@@ -15,7 +15,9 @@ function Home() {
   const { projects } = useProjects();
   const { items } = useExperience();
   const experience = [...items].reverse();
-  const featured = projects.slice(0, 6);
+  const featured = projects
+  .filter((item) => item.isFeatured)
+  .slice(0, 6);
 
   return (
     <div>
