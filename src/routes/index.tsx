@@ -14,7 +14,7 @@ export const Route = createFileRoute("/")({
 function Home() {
   const { projects } = useProjects();
   const { items: experience } = useExperience()
-  const featured = projects.slice(0, 3);
+  const featured = projects.slice(0, 6);
 
   return (
     <div>
@@ -97,7 +97,7 @@ function Home() {
           </Link>
         </div>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {featured.map((p, i) => (
+          {featured?.filter(item=>item.isFeatured).map((p, i) => (
             <ProjectCard key={p.id} project={p} index={i} />
           ))}
         </div>

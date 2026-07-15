@@ -30,6 +30,7 @@ export interface Project {
   outcomes: string;
   coverImage: string;
   projectUrl?: string;
+  isFeatured?: boolean;
 }
 
 const COL = "projects";
@@ -153,6 +154,7 @@ function toProject(id: string, data: Record<string, unknown>): Project {
     outcomes: data.outcomes as string,
     coverImage: data.coverImage as string,
     projectUrl: data.projectUrl as string,
+    isFeatured: data.isFeatured as boolean,
   };
 }
 

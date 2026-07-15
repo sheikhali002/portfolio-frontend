@@ -100,9 +100,8 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
           <button
             key={t}
             onClick={() => setTab(t)}
-            className={`relative rounded-full px-5 py-2 text-sm font-medium capitalize transition-colors ${
-              tab === t ? "text-primary-foreground" : "text-muted-foreground hover:text-foreground"
-            }`}
+            className={`relative rounded-full px-5 py-2 text-sm font-medium capitalize transition-colors ${tab === t ? "text-primary-foreground" : "text-muted-foreground hover:text-foreground"
+              }`}
           >
             {tab === t && (
               <motion.span layoutId="admin-tab" className="absolute inset-0 rounded-full bg-gradient-primary" transition={{ type: "spring", stiffness: 300, damping: 30 }} />
@@ -171,10 +170,19 @@ function ProjectsSection() {
                     </button>
                   </div>
                 </td>
+                <td className="px-6 py-4">
+                  {p.isFeatured ? (
+                    <span className="rounded-full bg-green-100 px-2.5 py-1 text-xs font-medium text-green-700">
+                      Featured
+                    </span>
+                  ) : (
+                    <span className="text-muted-foreground">—</span>
+                  )}
+                </td>
               </tr>
             ))}
             {projects.length === 0 && (
-              <tr><td colSpan={6} className="px-6 py-12 text-center text-muted-foreground">No projects yet.</td></tr>
+              <tr><td colSpan={7} className="px-6 py-12 text-center text-muted-foreground">No projects yet.</td></tr>
             )}
           </tbody>
         </table>
@@ -266,18 +274,20 @@ interface ProjectFormValues {
   outcomes: string;
   coverImage: string;
   projectUrl: string;
+  isFeatured: boolean;
 }
 
 function ProjectFormModal({ project, onClose }: { project: Project | null; onClose: () => void }) {
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<ProjectFormValues>({
     defaultValues: project
-      ? { ...project, projectUrl: project.projectUrl ?? "", technologies: project.technologies.join(", ") }
+      ? { ...project, projectUrl: project.projectUrl ?? "", technologies: project.technologies.join(", "), isFeatured: project.isFeatured ?? false }
       : {
-          title: "", category: "Web", client: "", duration: "", teamSize: 5,
-          description: "", technologies: "", role: "", challenges: "", outcomes: "",
-          coverImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80",
-          projectUrl: "",
-        },
+        title: "", category: "Web", client: "", duration: "", teamSize: 5,
+        description: "", technologies: "", role: "", challenges: "", outcomes: "",
+        coverImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80",
+        projectUrl: "",
+        isFeatured: true
+      },
   });
 
   async function onSubmit(v: ProjectFormValues) {
@@ -286,6 +296,7 @@ function ProjectFormModal({ project, onClose }: { project: Project | null; onClo
       teamSize: Number(v.teamSize),
       technologies: v.technologies.split(",").map((s) => s.trim()).filter(Boolean),
       projectUrl: v.projectUrl?.trim() || undefined,
+      isFeatured: v.isFeatured,
     };
     if (project) await projectsStore.update(project.id, payload);
     else await projectsStore.create(payload);
@@ -310,6 +321,17 @@ function ProjectFormModal({ project, onClose }: { project: Project | null; onClo
             placeholder="https://example.com"
           />
         </F>
+        <label className="col-span-full flex cursor-pointer items-center gap-3 rounded-xl border border-border bg-muted/30 px-4 py-3 hover:bg-muted/50 transition-colors">
+          <input
+            type="checkbox"
+            {...register("isFeatured")}
+            className="h-4 w-4 rounded border-border accent-primary"
+          />
+          <div>
+            <p className="text-sm font-medium">Feature this project</p>
+            <p className="text-xs text-muted-foreground">Featured projects are highlighted on the home page</p>
+          </div>
+        </label>
         <F label="Role" error={errors.role?.message} full><input {...register("role", { required: "Required" })} className="admin-input" /></F>
         <F label="Technologies (comma separated)" error={errors.technologies?.message} full><input {...register("technologies", { required: "Required" })} className="admin-input" placeholder="React, Node.js, AWS" /></F>
         <F label="Description" error={errors.description?.message} full><textarea rows={4} {...register("description", { required: "Required" })} className="admin-input resize-none" /></F>
@@ -338,12 +360,12 @@ function ExperienceFormModal({ item, onClose }: { item: ExperienceItem | null; o
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<ExpFormValues>({
     defaultValues: item
       ? {
-          company: item.company,
-          position: item.position,
-          duration: item.duration,
-          responsibilities: item.responsibilities.join("\n"),
-          technologies: item.technologies.join(", "),
-        }
+        company: item.company,
+        position: item.position,
+        duration: item.duration,
+        responsibilities: item.responsibilities.join("\n"),
+        technologies: item.technologies.join(", "),
+      }
       : { company: "", position: "", duration: "", responsibilities: "", technologies: "" },
   });
 
