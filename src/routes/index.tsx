@@ -13,7 +13,8 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   const { projects } = useProjects();
-  const { items: experience } = useExperience()
+  const { items } = useExperience();
+  const experience = [...items].reverse();
   const featured = projects.slice(0, 6);
 
   return (
