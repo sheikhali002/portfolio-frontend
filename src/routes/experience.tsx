@@ -1,11 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { experience } from "@/lib/portfolio-data";
+import { useExperience } from "@/hooks/use-experience";
 
 export const Route = createFileRoute("/experience")({
   head: () => ({
     meta: [
-      { title: "Experience — Alex Morgan" },
+      { title: "Experience — Ali Hassan" },
       { name: "description", content: "Career timeline: roles, responsibilities, and technologies managed across a decade of software delivery." },
       { property: "og:title", content: "Experience — Alex Morgan" },
       { property: "og:description", content: "A decade of software delivery leadership." },
@@ -15,6 +15,7 @@ export const Route = createFileRoute("/experience")({
 });
 
 function ExperiencePage() {
+  const { items: experience } = useExperience();
   return (
     <div className="mx-auto max-w-4xl px-6 py-16 md:py-24">
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>

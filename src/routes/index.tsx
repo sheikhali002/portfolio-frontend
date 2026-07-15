@@ -4,6 +4,8 @@ import { ArrowRight, Mail, Sparkles } from "lucide-react";
 import { stats, skills, experience } from "@/lib/portfolio-data";
 import { useProjects } from "@/hooks/use-projects";
 import { ProjectCard } from "@/components/ProjectCard";
+import heroBg from "@/assets/hero-bg.jfif";
+import { useExperience } from "@/hooks/use-experience";
 
 export const Route = createFileRoute("/")({
   component: Home,
@@ -11,13 +13,18 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   const { projects } = useProjects();
+  const { items: experience } = useExperience()
   const featured = projects.slice(0, 3);
 
   return (
     <div>
       {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-hero">
-        <div className="absolute inset-0 bg-gradient-mesh opacity-70" aria-hidden />
+         <div
+          className="absolute inset-0 bg-cover bg-center opacity-60"
+          style={{ backgroundImage: `url(${heroBg})` }}
+          aria-hidden
+        />
         <div className="relative mx-auto max-w-6xl px-6 pb-24 pt-20 md:pt-28">
           <motion.div
             initial={{ opacity: 0, y: 24 }}

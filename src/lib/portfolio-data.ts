@@ -121,8 +121,8 @@ export const experience = [
 ];
 
 export const stats = [
-  { label: "Projects Delivered", value: "40+" },
+  { label: "Projects Delivered", value: "100+" },
   { label: "Years of Experience", value: "5+" },
-  { label: "Countries Served", value: "3" },
+  { label: "Countries Served", value: "7" },
   { label: "Team Size Led", value: "15+" },
 ];

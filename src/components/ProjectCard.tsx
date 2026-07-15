@@ -18,12 +18,29 @@ export function ProjectCard({ project, index = 0 }: Props) {
       className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-soft transition-shadow hover:shadow-elegant"
     >
       <div className="relative aspect-[16/10] overflow-hidden bg-muted">
-        <img
-          src={project.coverImage}
-          alt={project.title}
-          loading="lazy"
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
+        {project.projectUrl ? (
+          <a
+            href={project.projectUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Visit ${project.title}`}
+            className="block h-full w-full"
+          >
+            <img
+              src={project.coverImage}
+              alt={project.title}
+              loading="lazy"
+              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+          </a>
+        ) : (
+          <img
+            src={project.coverImage}
+            alt={project.title}
+            loading="lazy"
+            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        )}
         <span className="absolute left-4 top-4 rounded-full glass px-3 py-1 text-xs font-medium text-primary">
           {project.category}
         </span>
@@ -33,7 +50,7 @@ export function ProjectCard({ project, index = 0 }: Props) {
           <h3 className="text-lg font-semibold tracking-tight">{project.title}</h3>
           <p className="mt-1 text-sm text-muted-foreground">{project.client}</p>
         </div>
-        <p className="text-sm text-muted-foreground line-clamp-3">{project.description}</p>
+        <p className="text-sm text-muted-foreground line-clamp-5">{project.description}</p>
 
         <div className="flex flex-wrap gap-2">
           {project.technologies.slice(0, 4).map((t) => (

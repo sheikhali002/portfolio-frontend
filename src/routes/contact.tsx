@@ -55,11 +55,11 @@ function Contact() {
               <p className="font-medium">linkedin.com/in/ali-hassan-496b3a197</p>
             </div>
           </a>
-          <a href="https://github.com" target="_blank" rel="noreferrer" className="flex items-center gap-4 rounded-2xl border border-border bg-card p-5 shadow-soft transition-shadow hover:shadow-elegant">
+          <a href="https://github.com/sheikhali002" target="_blank" rel="noreferrer" className="flex items-center gap-4 rounded-2xl border border-border bg-card p-5 shadow-soft transition-shadow hover:shadow-elegant">
             <span className="grid h-11 w-11 place-items-center rounded-xl bg-accent text-primary"><Github className="h-5 w-5" /></span>
             <div>
               <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">GitHub</p>
-              <p className="font-medium">github.com/alexmorgan</p>
+              <p className="font-medium">github.com/sheikhali002</p>
             </div>
           </a>
           <div className="flex items-center gap-4 rounded-2xl border border-border bg-card p-5 shadow-soft">

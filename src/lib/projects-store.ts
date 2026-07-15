@@ -29,6 +29,7 @@ export interface Project {
   challenges: string;
   outcomes: string;
   coverImage: string;
+  projectUrl?: string;
 }
 
 const COL = "projects";
