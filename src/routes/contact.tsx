@@ -41,7 +41,7 @@ function Contact() {
 
       <div className="mt-12 grid gap-8 lg:grid-cols-[1fr_1.4fr]">
         <div className="space-y-4">
-          <a href="mailto:hello@alexmorgan.dev" className="flex items-center gap-4 rounded-2xl border border-border bg-card p-5 shadow-soft transition-shadow hover:shadow-elegant">
+          <a href="mailto:alimagu6234@gmail.com" className="flex items-center gap-4 rounded-2xl border border-border bg-card p-5 shadow-soft transition-shadow hover:shadow-elegant">
             <span className="grid h-11 w-11 place-items-center rounded-xl bg-accent text-primary"><Mail className="h-5 w-5" /></span>
             <div>
               <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Email</p>
