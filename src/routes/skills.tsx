@@ -5,9 +5,9 @@ import { skills } from "@/lib/portfolio-data";
 export const Route = createFileRoute("/skills")({
   head: () => ({
     meta: [
-      { title: "Skillset — Alex Morgan" },
+      { title: "Skillset — Ali Hassan" },
       { name: "description", content: "Project management, technical, and soft skills across the full software delivery lifecycle." },
-      { property: "og:title", content: "Skillset — Alex Morgan" },
+      { property: "og:title", content: "Skillset — Ali Hassan" },
       { property: "og:description", content: "Project management, technical, and soft skills." },
     ],
   }),

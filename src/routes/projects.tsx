@@ -8,9 +8,9 @@ import { ProjectCard } from "@/components/ProjectCard";
 export const Route = createFileRoute("/projects")({
   head: () => ({
     meta: [
-      { title: "Projects — Alex Morgan" },
+      { title: "Projects — Ali Hassan" },
       { name: "description", content: "A selection of web and mobile projects delivered across CRM, ERP, SaaS, AI, e-commerce, and enterprise systems." },
-      { property: "og:title", content: "Projects — Alex Morgan" },
+      { property: "og:title", content: "Projects — Ali Hassan" },
       { property: "og:description", content: "Web and mobile projects across CRM, ERP, SaaS, AI, and enterprise." },
     ],
   }),

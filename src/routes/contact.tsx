@@ -9,7 +9,7 @@ export const Route = createFileRoute("/contact")({
     meta: [
       { title: "Contact — Ali Hassan" },
       { name: "description", content: "Get in touch to discuss project management engagements, delivery consulting, or new opportunities." },
-      { property: "og:title", content: "Contact — Alex Morgan" },
+      { property: "og:title", content: "Contact — Ali Hassan" },
       { property: "og:description", content: "Let's talk about your next project." },
     ],
   }),

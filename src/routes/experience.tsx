@@ -7,7 +7,7 @@ export const Route = createFileRoute("/experience")({
     meta: [
       { title: "Experience — Ali Hassan" },
       { name: "description", content: "Career timeline: roles, responsibilities, and technologies managed across a decade of software delivery." },
-      { property: "og:title", content: "Experience — Alex Morgan" },
+      { property: "og:title", content: "Experience — Ali Hassan" },
       { property: "og:description", content: "A decade of software delivery leadership." },
     ],
   }),
