@@ -2,6 +2,7 @@ import {
   collection,
   doc,
   getDocs,
+  getDoc,
   addDoc,
   updateDoc,
   deleteDoc,
@@ -158,10 +159,15 @@ function toProject(id: string, data: Record<string, unknown>): Project {
   };
 }
 
-/** Write seed docs to Firestore if the collection is empty. */
+const META_COL = "meta";
+const SEED_DOC = "seeded";
+
+/** Write seed docs to Firestore only on the very first run. */
 async function maybeSeед() {
-  const snap = await getDocs(collection(db, COL));
-  if (!snap.empty) return;
+  const metaRef = doc(db, META_COL, SEED_DOC);
+  const metaSnap = await getDoc(metaRef);
+  if (metaSnap.exists()) return;
+
   await Promise.all(
     seed.map((p, i) =>
       setDoc(doc(db, COL, String(i + 1)), {
@@ -171,6 +177,7 @@ async function maybeSeед() {
       })
     )
   );
+  await setDoc(metaRef, { seededAt: serverTimestamp() });
 }
 
 // Kick off seeding immediately (no-op after first run).
