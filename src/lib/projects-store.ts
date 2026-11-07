@@ -12,7 +12,7 @@ import {
   serverTimestamp,
   setDoc,
   type Unsubscribe,
-} from "firebase/firestore"
+} from "firebase/firestore";
 import { db } from "./firebase";
 
 export type ProjectCategory = "Web" | "Mobile";
